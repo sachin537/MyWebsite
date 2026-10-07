@@ -1,0 +1,76 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My First Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Skills</a>
+        <a href="#">Projects</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <section class="home">
+        <h1>Hi, I'm Sachin</h1>
+        <p>I am learning Web Development and Python.</p>
+        <button onclick="showMessage()">Contact Me</button>
+    </section>
+
+    <section class="about">
+        <h2>About Me</h2>
+        <p>
+            Hello! My name is Sachin. I am learning Python,
+            Web Development and Artificial Intelligence.
+        </p>
+    </section>
+
+    <section class="skills">
+        <h2>My Skills</h2>
+
+        <div class="skill-list">
+            <div>Python</div>
+            <div>HTML</div>
+            <div>CSS</div>
+            <div>AI / ML</div>
+        </div>
+    </section>
+
+    <section class="projects">
+        <h2>My Projects</h2>
+
+        <div class="project-list">
+
+            <div class="project-card">
+                <h3>My First Website</h3>
+                <p>A website I created using HTML and CSS.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Python Project</h3>
+                <p>A beginner Python project that I created while learning programming.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="contact">
+        <form method="POST" action="/contact">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+</form>
+        <p>Email: sachinsurname9@gmail.com</p>
+        <p>Phone: +91 9351673254</p>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body```

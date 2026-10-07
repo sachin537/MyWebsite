@@ -1,0 +1,142 @@
+body {
+    background-color: lightblue;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 100px;
+}
+
+h1 {
+    color: darkblue;
+    font-size: 50px;
+}
+
+p {
+    color: black;
+    font-size: 22px;
+}
+
+nav {
+    background-color: black;
+    padding: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+}
+
+nav a:hover {
+    color: lightblue;
+}button {
+    background-color: darkblue;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: navy;
+}.about {
+    background-color: white;
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.about h2 {
+    color: darkblue;
+    font-size: 35px;
+}
+
+.about p {
+    font-size: 20px;
+    line-height: 1.6;
+}.skills {
+    padding: 50px;
+}
+
+.skills h2 {
+    color: darkblue;
+    font-size: 35px;
+}
+
+.skill-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.skill-list div {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}.projects {
+    padding: 50px;
+    background-color: #f5f5f5;
+}
+
+.projects h2 {
+    color: darkblue;
+    font-size: 35px;
+}
+
+.project-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.project-card {
+    background-color: white;
+    padding: 25px;
+    width: 280px;
+    border-radius: 10px;
+}
+
+.project-card h3 {
+    color: darkblue;
+}
+
+.project-card p {
+    font-size: 17px;
+}.contact {
+    background-color: white;
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.contact h2 {
+    color: darkblue;
+    font-size: 35px;
+}
+
+.contact p {
+    font-size: 20px;
+}@media (max-width: 600px) {
+    nav a {
+        display: block;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    .skill-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}

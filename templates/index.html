@@ -1,10 +1,14 @@
-```html
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>My First Website</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
 </head>
 
 <body>
@@ -61,16 +65,44 @@
     </section>
 
     <section class="contact">
-        <form method="POST" action="/contact">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-</form>
-        <p>Email: sachinsurname9@gmail.com</p>
-        <p>Phone: +91 9351673254</p>
+        <h2>Let's Connect</h2>
+
+        <p>Feel free to contact me directly.</p>
+
+        <div class="contact-info">
+
+            <div class="contact-card">
+                <h3>👤 Name</h3>
+                <p>Sachin</p>
+            </div>
+
+            <div class="contact-card">
+                <h3>📱 Mobile</h3>
+                <p>+91 9351673254</p>
+                <a href="tel:+919351673254">Call Me</a>
+            </div>
+
+            <div class="contact-card">
+                <h3>✉️ Email</h3>
+                <p>sachinsurname9@gmail.com</p>
+                <a href="mailto:sachinsurname9@gmail.com">Email Me</a>
+            </div>
+
+            <div class="contact-card video-card">
+                <h3>🎥 Video Call</h3>
+                <p>Want to talk with me?</p>
+
+                <a href="/video-call" target="_blank">
+                    📹 Video Call Me
+                </a>
+            </div>
+
+        </div>
     </section>
 
+    <!-- Your JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-</body```
+</body>
+
+</html>

@@ -651,4 +651,75 @@ footer p {
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
     }
+} /* Sachin AI Floating Button */
+
+.chatbot-toggle {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 22px;
+    border: 1px solid #42e8ff;
+    border-radius: 50px;
+
+    background: linear-gradient(135deg, #102844, #5426a8);
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(66, 232, 255, 0.4);
+    transition: 0.3s;
+}
+
+.chatbot-toggle:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(66, 232, 255, 0.7);
+}
+
+.chatbot-panel {
+    position: fixed;
+    right: 25px;
+    bottom: 100px;
+    z-index: 9998;
+
+    width: 360px;
+    max-width: calc(100vw - 30px);
+    height: 480px;
+    max-height: calc(100vh - 130px);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+    border: 1px solid #42e8ff;
+    border-radius: 20px;
+
+    background: #090d1d;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.chatbot-panel[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 480px) {
+    .chatbot-toggle {
+        right: 15px;
+        bottom: 18px;
+    }
+
+    .chatbot-panel {
+        left: 10px;
+        right: 10px;
+        bottom: 85px;
+        width: auto;
+    }
 }

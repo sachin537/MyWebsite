@@ -7,8 +7,9 @@ app = Flask(__name__)
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
-OLLAMA_URL = "http://127.0.0.1:11434/api/chat"
-OLLAMA_MODEL = "llama3.2:3b"
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 
 @app.route("/")
@@ -23,17 +24,17 @@ def firebase_messaging_sw():
 
 @app.route("/video-call")
 def video_call():
-    message = "Someone wants to start a video call with you!"
-
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-
         try:
+            url = (
+                f"https://api.telegram.org/"
+                f"bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+            )
             requests.post(
                 url,
                 data={
                     "chat_id": TELEGRAM_CHAT_ID,
-                    "text": message
+                    "text": "Someone wants to start a video call with you!"
                 },
                 timeout=5
             )
@@ -52,10 +53,17 @@ def chat():
         return jsonify({"reply": "Please type a message first."}), 400
 
     if len(user_message) > 2000:
-        return jsonify({"reply": "Please keep your message under 2000 characters."}), 400
+        return jsonify({
+            "reply": "Please keep your message under 2000 characters."
+        }), 400
+
+    if not GROQ_API_KEY:
+        return jsonify({
+            "reply": "AI setup incomplete. Please contact the website owner."
+        }), 503
 
     payload = {
-        "model": OLLAMA_MODEL,
+        "model": GROQ_MODEL,
         "messages": [
             {
                 "role": "system",
@@ -70,32 +78,42 @@ def chat():
                 "content": user_message.strip()
             }
         ],
+        "temperature": 0.7,
+        "max_tokens": 700,
         "stream": False
     }
 
     try:
         response = requests.post(
-            OLLAMA_URL,
+            GROQ_API_URL,
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json"
+            },
             json=payload,
-            timeout=120
+            timeout=60
         )
-        response.raise_for_status()
-        result = response.json()
-        reply = result.get("message", {}).get("content", "").strip()
 
-        if not reply:
-            return jsonify({"reply": "I couldn't generate a response. Please try again."}), 502
+        if not response.ok:
+            app.logger.error(
+                "Groq API error: status=%s body=%s",
+                response.status_code,
+                response.text[:1000]
+            )
+            return jsonify({
+                "reply": "AI service is temporarily unavailable. Please try again."
+            }), 502
+
+        result = response.json()
+        reply = result["choices"][0]["message"]["content"].strip()
 
         return jsonify({"reply": reply})
 
-    except requests.RequestException:
-        app.logger.exception("Ollama request failed")
+    except (requests.RequestException, ValueError, KeyError, IndexError):
+        app.logger.exception("Groq chatbot request failed")
         return jsonify({
-            "reply": (
-                "I can't connect to the AI right now. "
-                "Please make sure Ollama is running on the website host."
-            )
-        }), 503
+            "reply": "AI se connection nahi ho pa raha. Please try again."
+        }), 502
 
 
 if __name__ == "__main__":

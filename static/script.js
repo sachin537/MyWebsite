@@ -43,7 +43,6 @@ async function setupNotifications() {
 }
 
 setupNotifications(); // Sachin AI Chatbot Controls
-
 const chatToggle = document.getElementById("chatbot-toggle");
 const chatPanel = document.getElementById("chatbot-panel");
 const chatClose = document.getElementById("chatbot-close");
@@ -53,33 +52,66 @@ const chatMessages = document.getElementById("chatbot-messages");
 const chatStatus = document.getElementById("chatbot-status");
 const chatSend = document.getElementById("chatbot-send");
 
-if (chatToggle && chatPanel) {
-    chatToggle.addEventListener("click", () => {
-        chatPanel.hidden = false;
+let chatHistory = [];
+
+function openSachinAI() {
+    if (!chatPanel) return;
+
+    chatPanel.hidden = false;
+    chatPanel.classList.add("chatbot-fullscreen");
+
+    if (chatToggle) {
         chatToggle.setAttribute("aria-expanded", "true");
-        chatInput?.focus();
-    });
+    }
+
+    chatInput?.focus();
 }
 
-if (chatClose && chatPanel && chatToggle) {
-    chatClose.addEventListener("click", () => {
-        chatPanel.hidden = true;
+function closeSachinAI() {
+    if (!chatPanel) return;
+
+    chatPanel.hidden = true;
+    chatPanel.classList.remove("chatbot-fullscreen");
+
+    if (chatToggle) {
         chatToggle.setAttribute("aria-expanded", "false");
-    });
+    }
+}
+
+if (chatToggle) {
+    chatToggle.addEventListener("click", openSachinAI);
+}
+
+if (chatClose) {
+    chatClose.addEventListener("click", closeSachinAI);
+}
+
+function addChatMessage(text, className) {
+    if (!chatMessages) return;
+
+    const messageElement = document.createElement("div");
+    messageElement.className = className;
+    messageElement.textContent = text;
+
+    chatMessages.appendChild(messageElement);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 if (chatForm) {
     chatForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const message = chatInput.value.trim();
-
-        if (!message) return;
+        const message = chatInput?.value.trim();
+        if (!message || !chatSend) return;
 
         addChatMessage(message, "user-message");
         chatInput.value = "";
-        chatStatus.textContent = "Sachin AI is thinking...";
+        chatInput.disabled = true;
         chatSend.disabled = true;
+
+        if (chatStatus) {
+            chatStatus.textContent = "Sachin AI is thinking...";
+        }
 
         try {
             const response = await fetch("/chat", {
@@ -87,30 +119,65 @@ if (chatForm) {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({
+                    message,
+                    history: chatHistory
+                })
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.reply || "Request failed.");
+                throw new Error(
+                    data.reply || `Request failed (${response.status})`
+                );
+            }
+
+            if (typeof data.reply !== "string" || !data.reply.trim()) {
+                throw new Error("AI returned an empty response.");
             }
 
             addChatMessage(data.reply, "bot-message");
-            chatStatus.textContent = "";
+
+            chatHistory.push(
+                { role: "user", content: message },
+                { role: "assistant", content: data.reply }
+            );
+
+            // Keep recent context bounded.
+            if (chatHistory.length > 20) {
+                chatHistory = chatHistory.slice(-20);
+            }
+
+            if (chatStatus) chatStatus.textContent = "";
 
         } catch (error) {
             addChatMessage(
-                "AI se connection nahi ho pa raha. Check karo ki Flask aur Ollama chal rahe hain.",
+                `AI error: ${error.message}`,
                 "bot-message"
             );
 
-            chatStatus.textContent = "";
-            console.error("Chatbot error:", error);
+            if (chatStatus) chatStatus.textContent = "";
+            console.error("Sachin AI error:", error);
 
         } finally {
+            chatInput.disabled = false;
             chatSend.disabled = false;
             chatInput.focus();
+        }
+    });
+}
+
+// Enter sends; Shift+Enter creates a new line.
+if (chatInput) {
+    chatInput.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey &&
+            !event.isComposing
+        ) {
+            event.preventDefault();
+            chatForm?.requestSubmit();
         }
     });
 }

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sachin | Futuristic Portfolio</title>
+
+    <meta name="description"
+          content="Welcome to Sachin's futuristic portfolio website. Explore projects, skills, and Sachin AI.">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Firebase libraries: keep these for your existing notifications -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-grid" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="#home" class="logo">SACHIN<span>.</span></a>
+
+        <nav aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Home Section -->
+        <section id="home" class="hero section">
+            <div class="hero-content">
+                <p class="eyebrow">WELCOME TO MY DIGITAL WORLD</p>
+
+                <h1>
+                    Hi, I'm <span class="gradient-text">Sachin</span>
+                </h1>
+
+                <h2>Student | Python Developer | AI/ML Learner</h2>
+
+                <p class="hero-description">
+                    I'm learning Python, Web Development and Artificial
+                    Intelligence. I love exploring technology and building
+                    creative digital projects.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="primary-button">
+                        Explore My Projects ↗
+                    </a>
+
+                    <a href="#contact" class="secondary-button">
+                        Contact Me
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div>
+                        <strong>Python</strong>
+                        <span>Learning</span>
+                    </div>
+
+                    <div>
+                        <strong>Web</strong>
+                        <span>Development</span>
+                    </div>
+
+                    <div>
+                        <strong>AI/ML</strong>
+                        <span>Exploring</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Futuristic 3D-style Orb -->
+            <div class="orb-stage" aria-label="Animated futuristic orb">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="orbit orbit-three"></div>
+
+                <div class="orb">
+                    <div class="orb-shine"></div>
+                </div>
+
+                <div class="floating-label label-one">
+                    <span class="status-dot"></span>
+                    PYTHON
+                </div>
+
+                <div class="floating-label label-two">
+                    AI + ML
+                </div>
+
+                <div class="floating-label label-three">
+                    FUTURE READY
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section content-section">
+            <p class="eyebrow">GET TO KNOW ME</p>
+
+            <h2 class="section-title">
+                About <span class="gradient-text">Me</span>
+            </h2>
+
+            <div class="glass-panel about-panel">
+                <div class="about-symbol">S</div>
+
+                <div>
+                    <h3>Curious Mind. Creative Builder.</h3>
+
+                    <p>
+                        Hi! I'm Sachin. I'm interested in technology,
+                        programming, Artificial Intelligence and Machine
+                        Learning. I'm currently learning how to turn ideas
+                        into useful applications and websites.
+                    </p>
+
+                    <p>
+                        My goal is to improve my coding skills, build
+                        practical projects and grow as a developer.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section content-section">
+            <p class="eyebrow">WHAT I'M LEARNING</p>
+
+            <h2 class="section-title">
+                My <span class="gradient-text">Skills</span>
+            </h2>
+
+            <div class="card-grid">
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🐍</div>
+                    <h3>Python</h3>
+                    <p>
+                        Learning programming fundamentals, logic
+                        and application development.
+                    </p>
+                    <span class="skill-tag">In Progress</span>
+                </article>
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🌐</div>
+                    <h3>HTML & CSS</h3>
+                    <p>
+                        Creating responsive websites with modern
+                        layouts and visual effects.
+                    </p>
+                    <span class="skill-tag">In Progress</span>
+                </article>
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>JavaScript</h3>
+                    <p>
+                        Learning interactive web features and
+                        frontend programming.
+                    </p>
+                    <span class="skill-tag">Learning</span>
+                </article>
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🤖</div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>
+                        Exploring artificial intelligence and
+                        machine learning concepts.
+                    </p>
+                    <span class="skill-tag">Learning</span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section content-section">
+            <p class="eyebrow">THINGS I'M BUILDING</p>
+
+            <h2 class="section-title">
+                My <span class="gradient-text">Projects</span>
+            </h2>
+
+            <div class="card-grid">
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🧮</div>
+                    <h3>Python Calculator</h3>
+                    <p>
+                        A calculator project for practicing Python
+                        basics and mathematical operations.
+                    </p>
+                    <span class="project-label">Python</span>
+                </article>
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🐍</div>
+                    <h3>Snake Game</h3>
+                    <p>
+                        A classic snake game project created while
+                        learning Python programming.
+                    </p>
+                    <span class="project-label">Python Game</span>
+                </article>
+
+                <article class="glass-panel tilt-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>KrishiConnect</h3>
+                    <p>
+                        A smart agriculture support concept for farmers,
+                        with crop guidance, weather information and
+                        market prices.
+                    </p>
+                    <span class="project-label">Web Development</span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section content-section">
+            <p class="eyebrow">LET'S CONNECT</p>
+
+            <h2 class="section-title">
+                Contact <span class="gradient-text">Me</span>
+            </h2>
+
+            <div class="glass-panel contact-panel">
+                <h3>Have a question or idea?</h3>
+
+                <p>
+                    You can contact me using the details below.
+                </p>
+
+                <div class="contact-links">
+                    <a href="mailto:sachin@example.com">
+                        ✉️ Email Me
+                    </a>
+
+                    <a href="/video-call" target="_blank"
+                       rel="noopener noreferrer">
+                        📹 Video Call Me
+                    </a>
+                </div>
+
+                <p class="contact-note">
+                    Replace sachin@example.com with your real email address.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            © <span id="current-year">2026</span> Sachin.
+            Built with curiosity and code.
+        </p>
+    </footer>
+
+    <!-- Floating AI Chat Button -->
+    <button
+        id="chatbot-toggle"
+        class="chatbot-toggle"
+        type="button"
+        aria-label="Open Sachin AI chat"
+        aria-expanded="false"
+        aria-controls="chatbot-panel">
+
+        <span aria-hidden="true">🤖</span>
+        <span>Chat with Sachin AI</span>
+    </button>
+
+    <!-- AI Chat Window -->
+    <section
+        id="chatbot-panel"
+        class="chatbot-panel"
+        aria-label="Sachin AI Chat"
+        hidden>
+
+        <div class="chatbot-header">
+            <div class="chatbot-profile">
+                <div class="chatbot-avatar">🤖</div>
+
+                <div>
+                    <h3>Sachin AI</h3>
+                    <p>
+                        <span class="status-dot"></span>
+                        AI Assistant
+                    </p>
+                </div>
+            </div>
+
+            <button
+                id="chatbot-close"
+                class="chatbot-close"
+                type="button"
+                aria-label="Close chat">
+                ✕
+            </button>
+        </div>
+
+        <div
+            id="chatbot-messages"
+            class="chatbot-messages"
+            aria-live="polite"
+            aria-relevant="additions text">
+
+            <div class="bot-message">
+                Hey! 👋 Welcome to my website.
+                I'm Sachin AI. Ask me anything!
+            </div>
+        </div>
+
+        <div
+            id="chatbot-status"
+            class="chatbot-status"
+            aria-live="polite">
+        </div>
+
+        <form id="chatbot-form" class="chatbot-form">
+            <label class="visually-hidden" for="chatbot-input">
+                Your message
+            </label>
+
+            <input
+                id="chatbot-input"
+                type="text"
+                placeholder="Ask me something..."
+                maxlength="2000"
+                autocomplete="off"
+                required>
+
+            <button id="chatbot-send" type="submit">
+                Send
+            </button>
+        </form>
+
+        <p class="chatbot-disclaimer">
+            Powered by local Ollama AI
+        </p>
+    </section>
+
+    <!-- Website JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+</body>
+</html>
